@@ -141,11 +141,16 @@ def run_test_draw_circles_from_rectangle():
     ####################################################################
     # ------------------------------------------------------------------
     title = 'Tests 1 and 2 of DRAW_SQUARES_FROM_CIRCLE: '
-    window1 = rg.RoseWindow(650, 350, title)
+    window1 = rg.RoseWindow(720, 500, title)
     #Test 1
     rectangle = rg.Rectangle(rg.Point(400, 250), rg.Point(440,325))
     rectangle.fill_color = 'green'
     draw_circles_from_rectangle(4,5, rectangle, window1)
+
+    #Test 2
+    rectangle = rg.Rectangle(rg.Point(600, 400), rg.Point(500, 450))
+    rectangle.fill_color = 'blue'
+    draw_circles_from_rectangle(8, 3, rectangle, window1)
 
     window1.close_on_mouse_click()
 
@@ -204,10 +209,40 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
     # ------------------------------------------------------------------
     rectangle.attach_to(window)
     window.render()
-    for i in range(m+1):
-        circle = rg.Circle(rectangle.corner_1.y - rectangle.corner_2.y * i,
-                           rectangle.corner_1.y - rectangle.corner_2.y)
-        circle.attach_to(window)
+
+    if rectangle.corner_1.x > rectangle.corner_2.x:
+
+        rectangle_1x = rectangle.corner_1.x
+        rectangle_1y = rectangle.corner_1.y
+        rectangle_2x = rectangle.corner_2.x
+        rectangle_2y = rectangle.corner_2.y
+
+        rectangle = rg.Rectangle(rg.Point(rectangle_2x,rectangle_1y),rg.Point(rectangle_1x,rectangle_2y))
+
+    for i in range(m):
+        radius_left = ((rectangle.corner_1.y - rectangle.corner_2.y)/2)
+
+
+        center_left = rg.Point(radius_left*i*2+rectangle.corner_1.x+radius_left,rectangle.get_center().y)
+
+
+        circle_left = rg.Circle((center_left),radius_left)
+
+        circle_left.fill_color = ("green")
+
+        circle_left.attach_to(window)
+
+        window.render()
+
+    for g in range(n):
+        radius_up = ((rectangle.corner_1.x - rectangle.corner_2.x) / 2)
+
+        center_up = rg.Point(rectangle.get_center().x, radius_up * g * 2 + 2+ rectangle.corner_1.y + radius_up)
+
+        circle_up = rg.Circle((center_up), radius_up)
+
+        circle_up.attach_to(window)
+
         window.render()
 
 def run_test_draw_lines_from_rectangles():
