@@ -187,7 +187,7 @@ def draw_lines(n, point, window):
     # ------------------------------------------------------------------
     start = 100
     for i in range(n):
-        line1 =rg.Line(point,rg.Point(point.x + 100,point.y+ start -(200/(
+        line1 =rg.Line(point,rg.Point(point.x + 100,point.y + start -(200/(
             n-1))*i))
         line1.attach_to(window)
         window.render()
