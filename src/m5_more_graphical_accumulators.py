@@ -152,6 +152,8 @@ def run_test_draw_circles_from_rectangle():
     rectangle.fill_color = 'blue'
     draw_circles_from_rectangle(8, 3, rectangle, window1)
 
+    #Test 3
+
     window1.close_on_mouse_click()
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
@@ -194,7 +196,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -207,8 +209,9 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ####################################################################
     # ------------------------------------------------------------------
-    rectangle.attach_to(window)
-    window.render()
+
+    color = 0
+
 
     if rectangle.corner_1.x > rectangle.corner_2.x:
 
@@ -216,8 +219,19 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
         rectangle_1y = rectangle.corner_1.y
         rectangle_2x = rectangle.corner_2.x
         rectangle_2y = rectangle.corner_2.y
-
+        color = 1
         rectangle = rg.Rectangle(rg.Point(rectangle_2x,rectangle_1y),rg.Point(rectangle_1x,rectangle_2y))
+
+    if color  == 1:
+        rectangle.outline_color = ('red')
+        rectangle.outline_thickness = (3)
+        rectangle.fill_color = "blue"
+    else:
+        rectangle.outline_thickness = 3
+        rectangle.fill_color = "green"
+
+    rectangle.attach_to(window)
+    window.render()
 
     for i in range(m):
         radius_left = ((rectangle.corner_1.y - rectangle.corner_2.y)/2)
@@ -228,8 +242,10 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
 
         circle_left = rg.Circle((center_left),radius_left)
 
-        circle_left.fill_color = ("green")
-
+        if color == 0:
+            circle_left.fill_color = ("green")
+        else:
+            circle_left.fill_color = ('blue')
         circle_left.attach_to(window)
 
         window.render()
@@ -240,6 +256,8 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
         center_up = rg.Point(rectangle.get_center().x, radius_up * g * 2 + 2+ rectangle.corner_1.y + radius_up)
 
         circle_up = rg.Circle((center_up), radius_up)
+        if color == 1:
+            circle_up.outline_color = 'red'
 
         circle_up.attach_to(window)
 
